@@ -1,2 +1,2 @@
 # AdventOfCode
-My 2021 Solutions
+A directory showcasing my solutions to the 2021 Advent of Code, programming challenge
