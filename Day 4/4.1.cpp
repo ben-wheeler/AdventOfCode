@@ -1,94 +1,116 @@
 #include <iostream>
-#include <fstream>
+#include <vector>
 #include <sstream>
 #include <string>
-#include <vector>
+#include <algorithm>
 
-using namespace std;
-
-struct board {
-    vector<int> numbers;
-    vector<bool> found;
-
-}
-
-
-
-
-int main()
+struct Number
 {
-    std::string line;
-    std::vector<std::string> DataArray;
-    std::vector<int> NumArrary;
-
-    std::ifstream myfile("input.txt");
-
-    if (!myfile) //Always test the file open.
+    int value;
+    bool found;
+    Number(int inp_value)
     {
-        std::cout << "Error opening output file" << std::endl;
-        system("pause");
-        return -1;
-    }
-    while (std::getline(myfile, line))
-    {
-        DataArray.push_back(line);
-    }
-    std::vector<int> callOutNumbers;
-
-    std::stringstream ss(DataArray[0]);
-
-    for (int i; ss >> i;)
-    {
-        callOutNumbers.push_back(i);
-        if (ss.peek() == ',')
-            ss.ignore();
+        value = inp_value;
+        found = false;
     }
 
-    vector<vector<string> > boards;
-    vector<string> board;
-    string temp;
-    for (int i = 2; i <= DataArray.size(); i++)
+    void set_found()
     {
-        if (DataArray[i] == "")
+        found = true;
+    }
+};
+
+struct Board
+{
+    std::vector<std::vector<Number> > numbers;
+
+    void clear()
+    {
+        numbers.clear();
+    }
+    void add(std::vector<Number> row)
+    {
+        numbers.push_back(row);
+    }
+    size_t get_size()
+    {
+        return numbers.size();
+    }
+
+    void print_board()
+    {
+        for (size_t j = 0; j < this->get_size(); j++)
         {
-            boards.push_back(board);
-            board.clear();
-        }
-        else
-        {
-            string temp = DataArray[i];
-            board.push_back(temp);
-        }
-    }
-
-
-    for (int i = 0; i < callOutNumbers.size(); i++)
-    {
-        string currentNum = to_string(callOutNumbers[i]);
-        for (int i = 0; i < boards.size(); i++)
-        {
-            for (int j = 0; j < boards[0].size(); j++)
+            for (size_t k = 0; k < this->numbers[j].size(); k++)
             {
-                if (boards[i][j].find(currentNum) != string::npos)
+                std::cout << this->numbers[j][k].value;
+                if (k != 4)
                 {
-                    int start_position_to_erase = boards[i][j].find(currentNum);
-                    int number_of_symbols = currentNum.size();
-                    boards[i][j].erase(start_position_to_erase, number_of_symbols);
+                    std::cout << ", ";
                 }
-                if(boards[i][j] == "    "){
-                        cout << "lol";
+                else
+                {
+                    std::cout << std::endl;
                 }
             }
         }
     }
+};
 
-        for (int i = 0; i < boards.size(); i++)
+void print_all_boards(std::vector<Board> inp)
+{
+    std::cout << "----------" << std::endl;
+    for (size_t i = 0; i < inp.size(); i++)
     {
-        for (int j = 0; j < 5; j++)
+        inp[i].print_board();
+
+        std::cout << "----------" << std::endl;
+    }
+}
+
+int main()
+{
+    std::vector<Board> boards;
+    std::string line;
+
+    std::getline(std::cin, line);
+    std::replace( line.begin(), line.end(), ',', ' ');
+    std::istringstream first_line(line);
+    std::vector<int> number_call_outs;
+    std::string first_a;
+    while (first_line >> first_a)
+    {
+        if (!first_a.empty())
         {
-            cout << boards[i][j] << endl;
+            number_call_outs.push_back(std::stoi(first_a));
         }
     }
+    for (size_t i = 0; i < number_call_outs.size(); i++)
+    {
+        std::cout << number_call_outs[i] << ", ";
+    }
+    return 0;
 
-    cout << boards[0].size() << endl;
-}
+    Board current_board;
+    while (std::getline(std::cin, line))
+    {
+        std::istringstream temp(line);
+        std::string a;
+        std::vector<Number> row;
+        while (temp >> a)
+        {
+            if (!a.empty() && (a.find_first_not_of(' ') != std::string::npos) && a != "\n")
+            {
+                Number spot(std::stoi(a));
+                row.push_back(spot);
+            }
+        }
+        current_board.add(row);
+        if (current_board.get_size() == 6)
+        {
+            boards.push_back(current_board);
+            current_board.clear();
+        }
+    }
+    print_all_boards(boards);
+};
