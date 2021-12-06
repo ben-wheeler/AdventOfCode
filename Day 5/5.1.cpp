@@ -131,16 +131,18 @@ int main()
     }
 
     int maxCount = 0;
-    for (int i = 0; i < 1000; i++)
+    for (int i = 0; i < diagram.size(); i++)
     {
-        for (int j = 0; j < 1000; j++)
+        for (int j = 0; j < diagram.size(); j++)
         {
-            if(diagram[i][j] > 1){
+            if (diagram[j][i] > 1)
+            {
                 maxCount++;
             }
-        }
+    }
     }
 
+    // print(diagram);
     cout << maxCount;
 
     // x1[0] y1[1] x2[2] y2[3]
