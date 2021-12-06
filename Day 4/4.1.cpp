@@ -86,7 +86,6 @@ Board search_board(Board inp, int num)
             if (inp.numbers[j][k].value == num)
             {
                 inp.numbers[j][k].found = true;
-                cout << "found " << num << endl;
             }
         }
     }
@@ -112,7 +111,6 @@ bool rowCheck(Board inp)
             if (inp.numbers[j][k].found == true)
             {
                 rowCount++;
-                // cout << rowCount << " ";
             }
             if (rowCount == 5)
             {
@@ -126,7 +124,6 @@ bool rowCheck(Board inp)
 
 bool colCheck(Board inp)
 {
-    cout << inp.numbers[5][4].value;
     for (int k = 0; k < 5; k++)
     {
         int colCount = 0;
@@ -135,7 +132,6 @@ bool colCheck(Board inp)
             if (inp.numbers[j][k].found == true)
             {
                 colCount++;
-                // cout << colCount << " ";
             }
             if (colCount == 5)
             {
@@ -186,10 +182,6 @@ int main()
             number_call_outs.push_back(std::stoi(first_a));
         }
     }
-    // for (size_t i = 0; i < number_call_outs.size(); i++)
-    // {
-    //     std::cout << number_call_outs[i] << ", ";
-    // }
 
     Board current_board;
     while (std::getline(std::cin, line))
@@ -221,5 +213,4 @@ int main()
             return 0;
         }
     }
-    // print_all_boards(boards);
 };
