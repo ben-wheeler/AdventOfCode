@@ -86,6 +86,7 @@ Board search_board(Board inp, int num)
             if (inp.numbers[j][k].value == num)
             {
                 inp.numbers[j][k].found = true;
+                cout << "found " << num << endl;
             }
         }
     }
@@ -125,6 +126,7 @@ bool rowCheck(Board inp)
 
 bool colCheck(Board inp)
 {
+    cout << inp.numbers[5][4].value;
     for (int k = 0; k < 5; k++)
     {
         int colCount = 0;
@@ -133,6 +135,7 @@ bool colCheck(Board inp)
             if (inp.numbers[j][k].found == true)
             {
                 colCount++;
+                // cout << colCount << " ";
             }
             if (colCount == 5)
             {
@@ -215,7 +218,6 @@ int main()
         bool endCheck = checkWin(boards);
         if (endCheck == true)
         {
-            cout << "Last called num: " << number_call_outs[i] << endl;
             return 0;
         }
     }
