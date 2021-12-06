@@ -4,6 +4,8 @@
 #include <string>
 #include <algorithm>
 
+using namespace std;
+
 struct Number
 {
     int value;
@@ -43,7 +45,14 @@ struct Board
         {
             for (size_t k = 0; k < this->numbers[j].size(); k++)
             {
-                std::cout << this->numbers[j][k].value;
+                if (this->numbers[j][k].found == false)
+                {
+                    std::cout << this->numbers[j][k].value;
+                }
+                else
+                {
+                    cout << "NO";
+                }
                 if (k != 4)
                 {
                     std::cout << ", ";
@@ -68,13 +77,102 @@ void print_all_boards(std::vector<Board> inp)
     }
 }
 
+Board search_board(Board inp, int num)
+{
+    for (size_t j = 0; j < inp.get_size(); j++)
+    {
+        for (size_t k = 0; k < inp.numbers[j].size(); k++)
+        {
+            if (inp.numbers[j][k].value == num)
+            {
+                inp.numbers[j][k].found = true;
+            }
+        }
+    }
+    return inp;
+}
+
+std::vector<Board> search_all_boards(std::vector<Board> inp, int num)
+{
+    for (size_t i = 0; i < inp.size(); i++)
+    {
+        inp[i] = search_board(inp[i], num);
+    }
+    return inp;
+}
+
+bool rowCheck(Board inp)
+{
+    for (size_t j = 0; j < inp.get_size(); j++)
+    {
+        int rowCount = 0;
+        for (size_t k = 0; k < inp.numbers[j].size(); k++)
+        {
+            if (inp.numbers[j][k].found == true)
+            {
+                rowCount++;
+                // cout << rowCount << " ";
+            }
+            if (rowCount == 5)
+            {
+                inp.print_board();
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool colCheck(Board inp)
+{
+    for (int k = 0; k < 5; k++)
+    {
+        int colCount = 0;
+        for (int j = 1; j < 6; j++)
+        {
+            if (inp.numbers[j][k].found == true)
+            {
+                colCount++;
+            }
+            if (colCount == 5)
+            {
+                inp.print_board();
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool checkWin(std::vector<Board> inp)
+{
+    for (size_t i = 0; i < inp.size(); i++)
+    {
+        bool current = false;
+        current = rowCheck(inp[i]);
+        if (current == true)
+        {
+            return true;
+        }
+        else{
+            current = colCheck(inp[i]);
+        }
+        if (current == true)
+        {
+            return true;
+        }
+
+    }
+    return false;
+}
+
 int main()
 {
     std::vector<Board> boards;
     std::string line;
 
     std::getline(std::cin, line);
-    std::replace( line.begin(), line.end(), ',', ' ');
+    std::replace(line.begin(), line.end(), ',', ' ');
     std::istringstream first_line(line);
     std::vector<int> number_call_outs;
     std::string first_a;
@@ -85,11 +183,10 @@ int main()
             number_call_outs.push_back(std::stoi(first_a));
         }
     }
-    for (size_t i = 0; i < number_call_outs.size(); i++)
-    {
-        std::cout << number_call_outs[i] << ", ";
-    }
-    return 0;
+    // for (size_t i = 0; i < number_call_outs.size(); i++)
+    // {
+    //     std::cout << number_call_outs[i] << ", ";
+    // }
 
     Board current_board;
     while (std::getline(std::cin, line))
@@ -112,5 +209,15 @@ int main()
             current_board.clear();
         }
     }
-    print_all_boards(boards);
+    for (int i = 0; i < number_call_outs.size(); i++)
+    {
+        boards = search_all_boards(boards, number_call_outs[i]);
+        bool endCheck = checkWin(boards);
+        if (endCheck == true)
+        {
+            cout << "Last called num: " << number_call_outs[i] << endl;
+            return 0;
+        }
+    }
+    // print_all_boards(boards);
 };
