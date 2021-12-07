@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
@@ -47,22 +48,21 @@ int main()
     // cout << endl;
     int fuelCount = 0;
 
+    double average = 0;
 
-    int ogMean = input[input.size()/2];
+for(int i = 0; i < input.size(); i++){
+    average += input[i];
+}
+    average = round(average/input.size());
+    int avg = average;
+    cout << avg << " ";
+
     for(int i = 0; i < input.size(); i++){
-        input[i] = calc(input[i]);
-    }
-    
-    cout << input[input.size()/2] << " ";
-
-
-
-    for(int i = 0; i < input.size(); i++){
-        if(input[i] > input[input.size()/2]){
-            fuelCount += calc(abs(input[i] - 5));
+        if(input[i] > avg){
+            fuelCount += calc(abs(input[i] - 471));
         }
-        else if(input[i] < input[input.size()/2]){
-            fuelCount += calc(abs(5 - input[i]));
+        else if(input[i] < avg){
+            fuelCount += calc(abs(471 - input[i]));
         }
     }
     cout << fuelCount;
