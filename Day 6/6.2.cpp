@@ -31,15 +31,15 @@ int main()
             input.push_back(stoi(first_a));
         }
     }
-    int zero = 0;
-    int one = 0;
-    int two = 0;
-    int three = 0;
-    int four = 0;
-    int five = 0;
-    int six = 0;
-    int seven = 0;
-    int eight = 0;
+    long zero = 0;
+    long one = 0;
+    long two = 0;
+    long three = 0;
+    long four = 0;
+    long five = 0;
+    long six = 0;
+    long seven = 0;
+    long eight = 0;
 
     for (int i = 0; i < input.size(); i++)
     {
@@ -73,45 +73,22 @@ int main()
             eight++;
             break;
         default:
+            std::cout << "SDSADA";
             break;
         }
     }
-    cout << one << endl;
-    cout << two << endl;
-    cout << three << endl;
-    cout << four << endl;
-    int counter;
-    for (int i = 0; i < 80; i++)
+    for (size_t i = 0; i < 256; i++)
     {
-            switch (i)
-            {
-            case 1:
-                one = one * 2;
-                break;
-            case 2:
-                two = two * 2;
-                break;
-            case 3:
-                three = three * 2;
-                break;
-            case 4:
-                four = four * 2;
-                break;
-            case 5:
-                five = five * 2;
-                break;
-            case 6:
-                six = six * 2;
-                break;
-            case 7:
-                seven = seven * 2;
-                break;
-            case 8:
-                eight = eight * 2;
-                break;
-            default:
-                break;
-        }
+        long temp = zero;
+        zero = one;
+        one = two;
+        two = three;
+        three = four;
+        four = five;
+        five = six;
+        six = seven + temp;
+        seven = eight;
+        eight = temp;
     }
-    cout << one + two + three + four + five + six + seven + eight << endl;
+    std::cout << zero + one + two + three + four + five + six + seven + eight << " -- Worked" << std::endl;
 }
