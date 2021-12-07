@@ -37,7 +37,7 @@ vector<vector<int> > updateConstantY(int constantY, int x1Val, int x2Val, vector
     }
     else
     {
-        for (int i = x1Val; i < x2Val - x1Val+1; i++)
+        for (int i = x1Val; i <= x2Val; i++)
         {
             input[i][constantY]++;
         }
@@ -56,7 +56,7 @@ vector<vector<int> > updateConstantX(int constantX, int y1Val, int y2Val, vector
     }
     else
     {
-        for (int i = y1Val; i < y2Val - y1Val+1; i++)
+        for (int i = y1Val; i <= y2Val; i++)
         {
             input[constantX][i]++;
         }
