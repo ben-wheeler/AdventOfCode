@@ -46,7 +46,7 @@ int main()
 
     // print(input);
     // cout << endl;
-    int fuelCount = 0;
+    long fuelCount = 0;
 
     double average = 0;
 
@@ -54,15 +54,15 @@ for(int i = 0; i < input.size(); i++){
     average += input[i];
 }
     average = round(average/input.size());
-    int avg = average;
+    int avg = average - 1;
     cout << avg << " ";
 
     for(int i = 0; i < input.size(); i++){
         if(input[i] > avg){
-            fuelCount += calc(abs(input[i] - 471));
+            fuelCount += calc(abs(input[i] - avg));
         }
         else if(input[i] < avg){
-            fuelCount += calc(abs(471 - input[i]));
+            fuelCount += calc(abs(avg - input[i]));
         }
     }
     cout << fuelCount;
