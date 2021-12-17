@@ -33,8 +33,6 @@ int main()
 
     sort(input.begin(), input.end());
 
-    // print(input);
-    // cout << endl;
     cout << input[input.size()/2] << " ";
     int fuelCount = 0;
 
