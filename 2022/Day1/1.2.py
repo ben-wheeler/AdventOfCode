@@ -4,21 +4,21 @@ def main():
        bestSoFar = 0
        secondBest = 0
        thirdBest = 0
-       comparisor = 0
+       comparator = 0
        for line in Lines:
             if(line.strip()):
-                comparisor += int(line)
+                comparator += int(line)
             else:
-                if(comparisor >= bestSoFar):
+                if(comparator >= bestSoFar):
                     thirdBest = secondBest
                     secondBest = bestSoFar
-                    bestSoFar = comparisor
-                elif(comparisor >= secondBest):
+                    bestSoFar = comparator
+                elif(comparator >= secondBest):
                     thirdBest = secondBest
-                    secondBest = comparisor
-                elif(comparisor >= thirdBest):
-                    thirdBest = comparisor
-                comparisor = 0
+                    secondBest = comparator
+                elif(comparator >= thirdBest):
+                    thirdBest = comparator
+                comparator = 0
        print(bestSoFar+secondBest+thirdBest)
 
 if __name__ == "__main__":

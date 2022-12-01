@@ -2,14 +2,14 @@ def main():
        f = open("input1.txt","r")
        Lines = f.readlines()
        bestSoFar = 0
-       comparisor = 0
+       comparator = 0
        for line in Lines:
             if(line.strip()):
-                comparisor += int(line)
+                comparator += int(line)
             else:
-                if(comparisor > bestSoFar):
-                    bestSoFar = comparisor
-                comparisor = 0
+                if(comparator > bestSoFar):
+                    bestSoFar = comparator
+                comparator = 0
        print(bestSoFar)
 
 if __name__ == "__main__":
