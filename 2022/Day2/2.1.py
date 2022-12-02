@@ -1,3 +1,4 @@
+# switch statement for other elf's play
 def switch(letter):
     if(letter == 'A'):
         return 1;
@@ -6,6 +7,7 @@ def switch(letter):
     elif(letter == 'C'):
         return 3
 
+# switch statement for my play
 def stich(letter):
     if(letter == 'X'):
         return 4;
@@ -14,16 +16,21 @@ def stich(letter):
     elif(letter == 'Z'):
         return 6
 
+# main
 def main():
-       f = open("input1.txt","r")
-       Lines = f.readlines()
-       score = 0
-       theirPlay = 0
-       for line in Lines:
+        f = open("input1.txt","r") # read file
+        Lines = f.readlines() # get lines
+        score = 0 # score tracker
+        for line in Lines: # loop for each move
+            # variables for each player
             theirPlay = 0
             yourPlay = 0
+
+            # calculate scores
             theirPlay = switch(line[0])
             yourPlay = stich(line[2])
+
+            # do the math for the logic
             if(theirPlay == 1):
                 if(yourPlay == 4):
                     score += 3
@@ -54,8 +61,8 @@ def main():
                 elif(yourPlay == 6):
                     score += 3
                     score += 3    
-            
-       print(score)
+        # print score  
+        print(score)
 
 if __name__ == "__main__":
     main()
