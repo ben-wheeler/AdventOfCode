@@ -2,24 +2,19 @@ def main():
     f = open("input1.txt","r")
     Lines = f.readlines()
     bestSoFar = 0
-    secondBest = 0
-    thirdBest = 0
     comparator = 0
-    for line in Lines:
-        if(line.strip()):
-            comparator += int(line)
-        else:
-            if(comparator >= bestSoFar):
-                thirdBest = secondBest
-                secondBest = bestSoFar
-                bestSoFar = comparator
-            elif(comparator >= secondBest):
-                thirdBest = secondBest
-                secondBest = comparator
-            elif(comparator >= thirdBest):
-                thirdBest = comparator
-            comparator = 0
-    print(bestSoFar+secondBest+thirdBest)
+    for l in Lines:
+        line = l.strip()
+        split = line.split(",")
+        first = split[0].split("-")
+        second = split[1].split("-")
+        firstSet = set(range(int(first[0]),int(first[1])+1))
+        secSet = set(range(int(second[0]),int(second[1])+1))
+        if(bool(set(firstSet) & set(secSet))):
+            bestSoFar += 1
+        elif(bool(set(secSet) & set(firstSet))):
+            bestSoFar += 1
+    print(bestSoFar)
 
 if __name__ == "__main__":
     main()
