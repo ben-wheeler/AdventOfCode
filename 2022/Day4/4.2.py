@@ -10,9 +10,9 @@ def main():
         second = split[1].split("-")
         firstSet = set(range(int(first[0]),int(first[1])+1))
         secSet = set(range(int(second[0]),int(second[1])+1))
-        if(bool(set(firstSet) & set(secSet))):
+        if(set(firstSet) & set(secSet)):
             bestSoFar += 1
-        elif(bool(set(secSet) & set(firstSet))):
+        elif(set(secSet) & set(firstSet)):
             bestSoFar += 1
     print(bestSoFar)
 
