@@ -34,7 +34,6 @@ def main():
             print(steal)
             piles[dest].extend(steal)
             piles[org] = piles[org][:temp]
-            # for x in range(howMany):
 
     for x in range(10):
         if(x > 0):
