@@ -1,5 +1,5 @@
 def main():
-    f = open("input1.txt","r")
+    f = open("input.txt","r")
     Lines = f.readlines()
     for line in Lines:
         for i in range(4, len(line)):
