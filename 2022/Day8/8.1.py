@@ -1,50 +1,64 @@
-class fileStats:
-    def __init__(self, n, s, kids):
-        self.name = n
-        self.size = s
-        self.children = kids
-    def __lt__(self, other):
-        return self.name < other.name
-    def __str__(self):
-        return str(self.__class__) + ": " + str(self.__dict__)
-
-def goUp(folder):
-    uppedFolder = folder
-    while(uppedFolder[-1] != "/"):
-        uppedFolder = uppedFolder[:-1]
-    uppedFolder = uppedFolder[:-1]
-    return uppedFolder
-
 def main():
-    f = open("input1.txt","r")
+    f = open("input.txt","r")
     Lines = f.readlines()
-    currentFolder = ""
-    items = []
-    noKids = []
-    kids = []
+    dataMatrix = []
+    scoreMatrix = []
+    dataRow = []
+    scoreRow = []
+    score = 0
 
     for line in Lines:
-        words = line.split(" ")
-        if words[0] == "$":
-            if words[1] == "cd":
-                words[2] = words[2].strip()
-                if(words[2] == ".."):
-                    currentFolder = goUp(currentFolder)
-                else:
-                    if(words[2] == '/'):
-                        currentFolder += '~'
-                    else:
-                        currentFolder += '/' + words[2]
-        elif words[0] == "dir":
-            words[1] = words[1].strip()
-            items.append(fileStats(currentFolder+"/"+words[1]+"-",0,noKids)) 
-            # get kids                      
-        elif words[0].isnumeric():
-            words[1] = words[1].strip()
-            items.append(fileStats(currentFolder+"/"+words[1],words[0],noKids))                      
-    kids = []
-    items.sort()
-    for item in items:
-        print(item)
+        line = line.strip()
+        for char in line:
+            num = int(char)
+            dataRow.append(num)
+            scoreRow.append(0)
+        dataMatrix.append(dataRow)
+        scoreMatrix.append(scoreRow)
+        dataRow = []
+        scoreRow = []
+    row = len(dataMatrix[0])
+    col = len(dataMatrix)
+
+    score += ((row * 2) + (col * 2)) - 4
+
+    for r in range(1,row-1):
+        biggest = dataMatrix[r][0]
+        backBiggest = dataMatrix[r][col-1]
+        for c in range(1,col-1//2):
+            if(dataMatrix[r][c] > biggest):
+                biggest = dataMatrix[r][c]
+                scoreMatrix[r][c] += 1
+            d = col - c
+            if(dataMatrix[r][d] > backBiggest):
+                backBiggest = dataMatrix[r][d]
+                scoreMatrix[r][d] += 1
+    print(row-1)
+    print("x")
+    print(col-1)
+    for c in range(1,col-1):
+        biggest = dataMatrix[0][c]
+        backBiggest = dataMatrix[row-1][c]
+        for r in range(1,row-1//2):
+            if(dataMatrix[r][c] > biggest):
+                biggest = dataMatrix[r][c]
+                scoreMatrix[r][c] += 1
+            d = row - c
+            if(dataMatrix[r][d] > backBiggest):
+                backBiggest = dataMatrix[r][d]
+                scoreMatrix[r][d] += 1
+        # d = col-1
+        # while(row[r][c] < row[r][c+1]):
+        #     scoreMatrix[r][c] += 1
+        #     c += 1
+        # d = col-1
+    
+    for r in range(1,row-1):
+        biggest = 0
+        for c in range(1,col-1):
+            if scoreMatrix[r][c] > 0:
+                score += 1
+    
+    print(score)
 if __name__ == "__main__":
     main()

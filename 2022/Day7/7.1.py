@@ -43,7 +43,10 @@ def main():
             words[1] = words[1].strip()
             items.append(fileStats(currentFolder+"/"+words[1],words[0],noKids))                      
     kids = []
+    for item in items:
+        print(item)
     items.sort()
+    print("OK NOW SORT ==============")
     for item in items:
         print(item)
 if __name__ == "__main__":
