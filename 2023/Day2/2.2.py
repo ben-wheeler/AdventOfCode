@@ -1,39 +1,43 @@
 map = {
-'one': 'o1e',
-'two': 't2o',
-'three': 'th3ee',
-'four': 'fo4fur',
-'five': 'fi5fve',
-'six': 'si6x',
-'seven': 'se7ven',
-'eight': 'eig8eht',
-'nine': 'ni9ne',
+' red': 'r',
+' blue': 'b',
+' green': 'g',
 }
 
 with open('input.txt', 'r') as file:
     lines = []
+    total = 0
 
     for line in file:
         line = line.strip()
-        currentLine = []
 
         numberWords = map.keys()
         for word in numberWords:
             line = line.replace(word, map[word])
-
-        for char in line: 
-            if char.isdigit():
-                if len(currentLine) > 1:
-                    currentLine[1] = char
+        words = line.split()
+        invalid = False
+        maxRed = 0
+        maxBlue = 0
+        maxGreen = 0
+        for word in words:
+            if "Game" not in word:
+                if ":" in word:
+                    word = word.replace(":", "")
                 else:
-                    currentLine.append(char)
-                    currentLine.append(char)
-
-        lines.append(currentLine)
-
-    total = 0
-    numbers = [int(''.join(pair)) for pair in lines]
-    for number in numbers:
-        total += number
+                    word = word.replace(",", "")
+                    word = word.replace(";", "")
+                    letter = word[-1]
+                    number = int(''.join(c for c in word if c.isdigit()))
+                    if letter == 'b':
+                        if number > maxBlue:
+                            maxBlue = number
+                    if letter == 'r':
+                        if number > maxRed:
+                            maxRed = number
+                    if letter == 'g':
+                        if number > maxGreen:
+                            maxGreen = number
+        power = maxRed * maxBlue * maxGreen
+        total += power
 
 print(total)
