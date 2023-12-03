@@ -9,13 +9,13 @@ with open('input.txt', 'r') as file:
 
         for char in line: 
             if not char.isdigit():
-                currentLine.append('.')
+                currentLine.append('F')
                 if char != ".":
                     currentSymbols.append('T')    
                 else:
                     currentSymbols.append('F')
             else:
-                currentLine.append(char)
+                currentLine.append('T')
                 currentSymbols.append('F')
         lines.append(currentLine)
         symbols.append(currentSymbols)
@@ -28,6 +28,14 @@ with open('input.txt', 'r') as file:
         currentNumber = ""
         for j in range(cols):
             char = lines[i][j]
+            if not char.isdigit():
+                if char != ".":
+                    # ladies and gentlemen we gottem (gear)
+                    gearCount = 0
+                    currentNumber = ""
+                    for col in range(max(0, j-len(currentNumber)-1), min(cols, j+1)):
+                        if symbols[row][col] == 'T':
+                            gearCount++
             if char.isdigit():
                 currentNumber += char
                 if j == cols-1:
