@@ -6,16 +6,19 @@ with open('input.txt', 'r') as file:
         line = line.strip()
         currentLine = []
         currentSymbols = []
+        numberCount = 0
 
         for char in line: 
             if not char.isdigit():
-                currentLine.append('F')
+                numberCount = 0
+                currentLine.append('.')
                 if char != ".":
                     currentSymbols.append('T')    
                 else:
                     currentSymbols.append('F')
             else:
-                currentLine.append('T')
+                numberCount += 1
+                currentLine.append(numberCount)
                 currentSymbols.append('F')
         lines.append(currentLine)
         symbols.append(currentSymbols)
@@ -31,6 +34,11 @@ with open('input.txt', 'r') as file:
             if not char.isdigit():
                 if char != ".":
                     # ladies and gentlemen we gottem (gear)
+
+                    # search around the gear
+                    # for each row, count the number of touching gears
+                    # add this
+
                     gearCount = 0
                     currentNumber = ""
                     for col in range(max(0, j-len(currentNumber)-1), min(cols, j+1)):
