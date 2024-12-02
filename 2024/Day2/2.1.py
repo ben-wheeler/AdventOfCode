@@ -1,22 +1,27 @@
 with open('input.txt', 'r') as file:
     lines = file.readlines()
 
-    left_column = []
-    right_column = []
+    count = 0
 
     for line in lines:
-        left, right = map(int, line.split())
-        left_column.append(left)
-        right_column.append(right)
+        numbers = list(map(int, line.split()))
+        
+        increasing = False
+        decreasing = False
+        valid_difference = True
 
-    left_column.sort()
-    right_column.sort()
+        for i in range(1, len(numbers)):
+            diff = numbers[i] - numbers[i - 1]
+            if not (1 <= abs(diff) <= 3):
+                valid_difference = False
+                break
+        
+            if numbers[i] > numbers[i - 1]:
+                    increasing = True
+            elif numbers[i] < numbers[i - 1]:
+                    decreasing = True
+        
+        if (increasing != decreasing) and valid_difference:
+            count += 1
 
-    total_distance = 0
-    for left, right in zip(left_column, right_column):
-        largest = right if left <= right else left
-        smallest = right if left > right else left
-        distance = (largest - smallest)
-        total_distance += distance
-
-    print(total_distance)
+    print(count)
