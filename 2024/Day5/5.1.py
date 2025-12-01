@@ -1,4 +1,18 @@
 def ruleIsValid(position, line, rules):
+    currentNumber = line[position]
+    rulesForCurrentNumber = []
+
+    for rule in rules:
+        number,mustBeBefore = zip(*rule)
+        if currentNumber == number:
+            rulesForCurrentNumber.append(rule)
+    
+    for 
+        for index, number in enumerate(line):
+
+    
+
+
 
 
 with open('input.txt', 'r') as file:
