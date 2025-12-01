@@ -2,7 +2,7 @@ import Foundation
 
 struct CombinationDial {
     let values: [Int]
-    var position: Int = 50  // current index
+    var position: Int = 50 
 
     mutating func moveRight(_ steps: Int) {
         position = (position + steps) % values.count
@@ -17,11 +17,10 @@ struct CombinationDial {
     }
 }
 
-// Path to input file (same folder as executable)
 let fileURL = URL(fileURLWithPath: "input.txt")
 
 do {
-    let contents = try String(contentsOf: fileURL)
+    let contents = try String(contentsOf: fileURL, encoding: .utf8)
     let lines = contents.split(separator: "\n")
 
     var dial = CombinationDial(values: Array(0...99))
